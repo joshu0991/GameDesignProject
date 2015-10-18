@@ -1,6 +1,7 @@
 import time
 import random
-
+import time
+import os
 
 class PlayerTimer:
     def __init__(self, difficulty, numberOfPlayers):
@@ -10,6 +11,10 @@ class PlayerTimer:
         self.startTime = time.time()
         self.timer = 0
         self.initalizePlayers()
+        self.fantog = 0
+
+    def getFan(self):
+        return self.fantog
 
     def setTimeLimit(self, difficulty):
         timeLimit = 0
@@ -30,9 +35,10 @@ class PlayerTimer:
     def takeInput(self, action, playerNumber):
         if action != 'stop':
             self.timer = time.time() - self.startTime
+            self.checkTimer(playerNumber, self.timer)
         else:
             self.startTime = time.time()
-        self.checkTimer(playerNumber)
+            self.checkTimer(playerNumber, self.timer)
 
     def getTimer(self, playerNumber):
         return self.timer
@@ -41,9 +47,12 @@ class PlayerTimer:
         self.playerList[playerNumber - 1] = totalTime
         print ("totalTime" + str(self.playerList[playerNumber - 1]))
         
-    def checkTimer(self, playerNumber):
-        if self.playerList[playerNumber - 1] > self.timeLimit:
+    def checkTimer(self, playerNumber, time):
+        print("Checking time")
+        if (self.playerList[playerNumber - 1] + time) > self.timeLimit:
             self.startFan()
             
     def startFan(self):
-        pass
+        os.system('sudo /home/pi/Desktop/GameDesignProject/runfan.sh')
+        self.fantog = 1
+

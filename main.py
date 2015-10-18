@@ -1,15 +1,13 @@
 #!/usr/bin/python
-
 from counter import PlayerTimer
-import tkinter
-from builtins import int
+from Tkinter import *
 
-top = tkinter.Tk()
+top = Tk()
 difficulty = 'easy'
 window = None
 numberOfPlayers = 0
-label = tkinter.Label()
-v = tkinter.StringVar()
+label = Label()
+v = StringVar()
 currentPlayer = 1
 buttonPushed = 0
 pause = 0
@@ -21,20 +19,20 @@ totalTimeP3 = 0
 totalTimeP4 = 0
 
 
-p1 = tkinter.StringVar()
-p2 = tkinter.StringVar()
-p3 = tkinter.StringVar()
-p4 = tkinter.StringVar()
+p1 = StringVar()
+p2 = StringVar()
+p3 = StringVar()
+p4 = StringVar()
 
-c1 = tkinter.StringVar()
-c2 = tkinter.StringVar()
-c3 = tkinter.StringVar()
-c4 = tkinter.StringVar()
+c1 = StringVar()
+c2 = StringVar()
+c3 = StringVar()
+c4 = StringVar()
 
-c11 = tkinter.StringVar()
-c22 = tkinter.StringVar()
-c33 = tkinter.StringVar()
-c44 = tkinter.StringVar()
+c11 = StringVar()
+c22 = StringVar()
+c33 = StringVar()
+c44 = StringVar()
 
 def setDifficulty(d):
     global difficulty
@@ -64,20 +62,20 @@ def addPlayerClocks():
     if numberOfPlayers == 2:
         p1.set("Player One")
         p2.set("Player Two")
-        tkinter.Label(top, textvariable=p1).pack()
-        tkinter.Label(top, textvariable=p2).pack()
+        Label(top, textvariable=p1).pack()
+        Label(top, textvariable=p2).pack()
 
 def runDifficultyWindow():
     global window
     global difficulty
     global v
-    window = tkinter.Toplevel(top)
+    window = Toplevel(top)
     v.set(difficulty)
-    tkinter.Label(window, textvariable=v).pack()
-    e = tkinter.Button(window, bg='blue', height=(1), width=(30), text="Easy", command=lambda : setDifficulty('easy'))
-    m = tkinter.Button(window, bg='orange', height=(1), width=(30), text="Medium", command=lambda : setDifficulty('medium'))
-    h = tkinter.Button(window, bg='red', height=(1), width=(30), text="Hard", command=lambda : setDifficulty('hard'))
-    d = tkinter.Button(window, bg='red', height=(1), width=(30), text="Submit Choice", command=killWindow)
+    Label(window, textvariable=v).pack()
+    e = Button(window, bg='blue', height=(1), width=(30), text="Easy", command=lambda : setDifficulty('easy'))
+    m = Button(window, bg='orange', height=(1), width=(30), text="Medium", command=lambda : setDifficulty('medium'))
+    h = Button(window, bg='red', height=(1), width=(30), text="Hard", command=lambda : setDifficulty('hard'))
+    d = Button(window, bg='red', height=(1), width=(30), text="Submit Choice", command=killWindow)
     e.pack(ipadx=10, ipady=3)
     m.pack(ipadx=10, ipady=3)
     h.pack(ipadx=10, ipady=3)
@@ -87,13 +85,13 @@ def setPlayers():
     global window
     global v
     global numberOfPlayers
-    window = tkinter.Toplevel(top)
+    window = Toplevel(top)
     v.set(numberOfPlayers)
-    tkinter.Label(window, textvariable=v).pack()
-    e = tkinter.Button(window, bg='blue', height=(1), width=(30), text="2", command=lambda : setPlayersf(2))
-    f = tkinter.Button(window, bg='red', height=(1), width=(30), text="3", command=lambda : setPlayersf(3))
-    g = tkinter.Button(window, bg='yellow', height=(1), width=(30), text="4", command=lambda : setPlayersf(4))
-    d = tkinter.Button(window, bg='red', height=(1), width=(30), text="Submit Choice", command=killWindow)
+    Label(window, textvariable=v).pack()
+    e = Button(window, bg='blue', height=(1), width=(30), text="2", command=lambda : setPlayersf(2))
+    f = Button(window, bg='red', height=(1), width=(30), text="3", command=lambda : setPlayersf(3))
+    g = Button(window, bg='yellow', height=(1), width=(30), text="4", command=lambda : setPlayersf(4))
+    d = Button(window, bg='red', height=(1), width=(30), text="Submit Choice", command=killWindow)
     e.pack(ipadx=10, ipady=3)
     f.pack(ipadx=10, ipady=3)
     g.pack(ipadx=10, ipady=3)
@@ -109,7 +107,6 @@ def start():
     global buttonPushed
     global pause
     counter = 0
-
     while 1:
         # reset the clock point
         if counter == 0:
@@ -155,11 +152,15 @@ def start():
         counter += 1
         top.update()
 
+        if (t.getFan() == 1):
+            break
+
 def pause():
     global pause
     pause = 1
 
 def pushButton():
+    global t
     global buttonPushed
     buttonPushed = 1
 
@@ -172,8 +173,8 @@ def main():
     w, h = top.winfo_screenwidth(), top.winfo_screenheight()
     top.geometry("%dx%d+0+0" % (w, h))
 
-    menubar = tkinter.Menu(top)
-    menu = tkinter.Menu(menubar, tearoff=0)
+    menubar = Menu(top)
+    menu = Menu(menubar, tearoff=0)
     menubar.add_cascade(label="Control Center", menu=menu)
     menu.add_command(label="Difficulty", command=runDifficultyWindow)
     menu.add_command(label="Players", command=setPlayers)
@@ -193,27 +194,27 @@ def main():
     c22.set("0.0")
     c33.set("0.0")
     c44.set("0.0")
-    tkinter.Label(top, textvariable=p1).place(x = 20, y = 10)
-    tkinter.Label(top, textvariable=c1).place(x = 20, y = 60)
-    tkinter.Label(top, text="Total: ").place(x = 20, y = 110)
-    tkinter.Label(top, textvariable=c11).place(x = 20, y = 160)
+    Label(top, textvariable=p1).place(x = 20, y = 10)
+    Label(top, textvariable=c1).place(x = 20, y = 60)
+    Label(top, text="Total: ").place(x = 20, y = 110)
+    Label(top, textvariable=c11).place(x = 20, y = 160)
 
-    tkinter.Label(top, textvariable=p2).place(x = w - 175, y = 10)
-    tkinter.Label(top, textvariable=c2).place(x = w - 175, y = 60)
-    tkinter.Label(top, text="Total: ").place(x = w - 175, y = 110)
-    tkinter.Label(top, textvariable=c22).place(x = w - 175, y = 160)
+    Label(top, textvariable=p2).place(x = w - 175, y = 10)
+    Label(top, textvariable=c2).place(x = w - 175, y = 60)
+    Label(top, text="Total: ").place(x = w - 175, y = 110)
+    Label(top, textvariable=c22).place(x = w - 175, y = 160)
 
-    tkinter.Label(top, textvariable=p3).place(x = 20, y = h - 275)
-    tkinter.Label(top, textvariable=c3).place(x = 20, y = h - 225)
-    tkinter.Label(top, text="Total: ").place(x = 20, y = h - 175)
-    tkinter.Label(top, textvariable=c33).place(x = 20, y = h - 125)
+    Label(top, textvariable=p3).place(x = 20, y = h - 275)
+    Label(top, textvariable=c3).place(x = 20, y = h - 225)
+    Label(top, text="Total: ").place(x = 20, y = h - 175)
+    Label(top, textvariable=c33).place(x = 20, y = h - 125)
 
-    tkinter.Label(top, textvariable=p4).place(x = w - 175, y = h - 275)
-    tkinter.Label(top, textvariable=c4).place(x = w - 175, y = h - 225)
-    tkinter.Label(top, text="Total: ").place(x = w - 175, y = h - 175)
-    tkinter.Label(top, textvariable=c44).place(x = w - 175, y = h - 125)
+    Label(top, textvariable=p4).place(x = w - 175, y = h - 275)
+    Label(top, textvariable=c4).place(x = w - 175, y = h - 225)
+    Label(top, text="Total: ").place(x = w - 175, y = h - 175)
+    Label(top, textvariable=c44).place(x = w - 175, y = h - 125)
 
-    b = tkinter.Button(top, bg='blue', height=(10), width=(30), text="End Turn!", command=pushButton)
+    b = Button(top, bg='blue', height=(10), width=(30), text="End Turn!", command=pushButton)
 
     b.place(x=7, y=5)
     b.pack(ipadx=10, ipady=300)
